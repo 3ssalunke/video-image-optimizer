@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    environment:
+      - BASE_URL=http://0.0.0.0:8118/
+      - STORAGE_DIR=/uploads
+      - SECRET_CODE=wowsosecret
+      - IMAGE_ORIGINAL_LENGTH=1400
+      - MAX_UPLOAD_SIZE=100M
+    volumes:
+      - ./uploads:/uploads
+    ports:
+      - 8118:8118
+    user: "1000" # set your real uid (by default only root can read the uploaded files)
+    restart: unless-stopped

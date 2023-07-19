@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block main %}
+  <div class="logo">
+    <a href="/"><img src="/static/images/logo.png" alt="logo" />&nbsp;VIO</a>
+  </div>
+
+  {% if isAuthorized %}
+    <div class="block upload">
+      <div class="upload-placeholder">
+        <div>
+          <span style="font-size: 180%"> 🎥 🗃 🖼 </span>
+          <br />Drag files or click here...
+        </div>
+        <form
+          action="/upload/multipart/"
+          method="post"
+          class="upload-form"
+          enctype="multipart/form-data"
+        >
+          <input type="hidder" name="code" value="{{secretcode}}" />
+          <input
+            type="file"
+            name="media"
+            class="upload-file"
+            accept="image/*,video/*"
+            onchange="this.form.submit()"
+            multiple
+          />
+          <button type="submit" class="button upload-submit">Upload</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class="block auth">
+      <form action="" method="get" class="auth-form">
+        <label>
+          Secret code
+          <input type="text" name="code" class="auth-input" />
+        </label>
+        <button type="submit" class="button auth-submit">Enter</button>
+      </form>
+    </div>
+  {% endif %}
+{% endblock %}

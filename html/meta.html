@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Meta{% endblock %}
+{% block main %}
+  {% for file in files %}
+    <div class="block meta">
+      <a href="{{file.Url}}"></a>
+      {% if file.IsImage %}
+        <img src="{{file.Url}}" class="meta-media" alt="Uploaded image preview" />
+      {% endif %}
+      {% if file.IsVideo %}
+        <video src="{{file.Url}}" class="meta-media" controls></video>
+      {% endif %}
+
+      <div class="meta-title">
+        <a href="{{file.Url}}">{{file.Url}}</a>
+      </div>
+
+      <div class="meta-info">{{file.Mime}} | {{bytesHumanize(file.Size)}}</div>
+
+      <div class="meta-blocks">
+        {% for element in blocks %}
+          <div class="meta-block">
+            <div class="meta-block-title">{{element.Title}}</div>
+            <textarea class="meta-block-template">
+              {{ renderFileTemplate(element.Template, file) }}
+            </textarea>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+  <div class="logo">
+    <a href="/"><img src="/static/images/logo.png" />&nbsp;VIO</a>
+  </div>
+{% endblock %}
